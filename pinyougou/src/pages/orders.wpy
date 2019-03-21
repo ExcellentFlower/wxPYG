@@ -1,0 +1,222 @@
+<style lang="less">
+.tabs-head {
+  height: 100px;
+  background-color: #fff;
+  display: flex;
+}
+.tabs-head .tabs-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  position: relative;
+}
+.tabs-head .active {
+  color: #ff2d4a;
+  font-weight: 400;
+}
+.tabs-head .active:after {
+  content: '';
+  height: 12px;
+  width: 100%;
+  background-color: #ff2d4a;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.tabs-body {
+  // padding: 16px;
+  padding-bottom: 100px;
+}
+
+.product-item {
+  display: flex;
+  padding: 30px 20px;
+  position: relative;
+}
+.product-item::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px solid #ddd;
+}
+// .product-item:first-child::after {
+//   border-bottom: 0 none;
+// }
+
+.product-left {
+  margin-right: 26px;
+}
+.product-left,
+.product-left .product-img {
+  width: 200px;
+  height: 200px;
+  background-color: #eee;
+}
+.product-right {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.product-name {
+  height: 84px;
+  font-size: 30px;
+  line-height: 1.4;
+  /* 多行文字隐藏省略号 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.product-price {
+  color: #ff2d4a;
+}
+.product-price-symbol,
+.product-price-decimal {
+  font-size: 28px;
+}
+.product-price-integer {
+  font-size: 44px;
+}
+
+.product-count {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  letter-spacing: 2px;
+}
+
+.tabs-head {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+.tabs-body {
+  padding-top: 130px;
+}
+.product-item {
+  background-color: #fff;
+}
+// .order-number {
+//   height: 88px;
+//   background-color: #fff;
+//   padding-left: 20px;
+//   display: flex;
+//   align-items: center;
+//   position: relative;
+//   border-bottom: 1px solid #ddd;
+// }
+.order-total,
+.order-btn-group {
+  height: 88px;
+  background-color: #fff;
+  padding: 0 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+.order-total {
+  color: #999;
+}
+.order-btn-group {
+  margin-bottom: 30px;
+  justify-content: space-between;
+  color: #999;
+  &::after {
+    content: '';
+    position: absolute;
+    border-top: 1px solid #ddd;
+    left: 20px;
+    right: 20px;
+    top: 0;
+  }
+  .btn-line {
+    border: 2px solid #999;
+    border-radius: 5px;
+    width: 156px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40px;
+  }
+  .btn-color-main {
+    color: #ff2d4a;
+  }
+}
+</style>
+
+<template>
+  <view class="tabs">
+    <view class="tabs-head">
+      <block wx:for="{{ tabsListArr }}" wx:key="index">
+        <view class="tabs-item {{ activeIndex === index ? 'active': '' }}" @tap="changeTab({{index}})">
+          {{ item }}
+        </view>
+      </block>
+    </view>
+    <view class="tabs-body">
+      <view class="order-list">
+        <block>
+
+          <block>
+            <view class="product-item">
+              <navigator url="/pages/goods_detail?goods_id=item.goods_id" class="product-left">
+                <image class="product-img holder-image" src="/assets/images/place_holder@2x.png" />
+              </navigator>
+              <view class="product-right">
+                <navigator url="/pages/goods_detail?goods_id=item.goods_id" class="product-name">
+                商品名称
+                </navigator>
+                <view class="product-price">
+                  <text class="product-price-symbol">￥</text>
+                  <text class="product-price-integer">100</text>
+                  <text class="product-price-decimal">.00</text>
+                </view>
+                <view class="product-count">x3</view>
+              </view>
+            </view>
+          </block>
+
+          <view class="order-total">
+            共 3 件商品 总计：¥ 300 (含运费0.00)
+          </view>
+          <view class="order-btn-group">
+            订单号：GD201808080000000000123
+            <!-- <view class="btn-line">查看物流</view> -->
+            <view class="btn-line btn-color-main">查看</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+
+export default class Orders extends wepy.page {
+  config = {
+    navigationBarTitleText: '订单'
+  }
+  data = {
+    tabsListArr: ['全部', '待付款', '已付款', '退款/退货'],
+    activeIndex: 0
+  }
+
+  methods = {
+    changeTab(index) {
+      this.activeIndex = index
+    }
+  }
+}
+</script>

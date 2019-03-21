@@ -1,0 +1,243 @@
+<style lang="less">
+/* 以下是页面代码 */
+.user {
+  height: 410px;
+  position: relative;
+  display: flex;
+  background-color: #ff2d4a;
+  flex-direction: column;
+  &-avatar-bg {
+    width: 750px;
+    height: 410px;
+    position: absolute;
+    overflow: hidden;
+    &-img {
+      width: 1000px;
+      height: 1000px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(50px);
+    }
+  }
+  &-avatar {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    &-img {
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      width: 132px;
+      height: 132px;
+    }
+  }
+  &-name {
+    color: #fff;
+    font-size: 30px;
+    margin-top: 20px;
+    z-index: 1;
+  }
+  &-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    .iconfont-tap {
+      color: #fff;
+      position: absolute;
+    }
+    .icon-setting {
+      margin-left: -150px;
+    }
+    .icon-message {
+      margin-left: 150px;
+    }
+    .iconfont-tap:after {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  &-bottom {
+    margin: -26px 16px 0;
+    height: 120px;
+    background-color: #fff;
+    display: flex;
+    position: relative;
+    z-index: 2;
+    .item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &-number {
+        color: #999;
+      }
+      &-note {
+        color: #666;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+.order,
+.cell {
+  margin: 20px 16px;
+  background-color: #fff;
+  font-size: 32px;
+}
+.order {
+  &-head {
+    padding-left: 30px;
+    line-height: 88px;
+  }
+  &-body {
+    display: flex;
+    border-top: 1px solid #ddd;
+    .item {
+      flex: 1;
+      display: flex;
+      padding: 30px 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &-note {
+        font-size: 28px;
+        margin-top: 14px;
+      }
+    }
+  }
+  .iconfont {
+    width: 64px;
+    height: 64px;
+    color: #ff2d4a;
+    font-size: 64px;
+  }
+}
+
+.cell {
+  overflow: hidden;
+  &-item {
+    padding: 28px 30px 28px 0;
+    margin-left: 30px;
+    border-top: 1px solid #ddd;
+    margin-top: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .phone {
+    color: #999;
+  }
+  .icon-arrow-right:after {
+    font-family: 'iconfont';
+    content: '\e60e';
+    width: 20px;
+    height: 26px;
+    font-size: 26px;
+    line-height: 1;
+    color: #ccc;
+  }
+}
+// 微信登录按钮
+.wx-login-btn {
+  width: 128px;
+  height: 180px;
+}
+</style>
+
+<template>
+  <view class="user flex-center">
+    <view class="user-avatar-bg">
+      <image wx:if="{{ userInfo.avatarUrl }}" class="user-avatar-bg-img" src="{{ userInfo.avatarUrl }}" />
+    </view>
+    <view class="user-head">
+      <view class="iconfont iconfont-tap icon-setting icon-shezhi"></view>
+      <view class="user-avatar">
+        <image class="user-avatar-img" src="{{ userInfo.avatarUrl || '/assets/images/reg_logo@2x.png' }}" />
+      </view>
+      <view class="iconfont iconfont-tap icon-message icon-xiaoxi "></view>
+    </view>
+    <text class="user-name">{{ userInfo.nickName }}</text>
+    <button>登录/注册</button>
+  </view>
+  <view class="user-bottom ">
+    <view class="item">
+      <view class="item-number ">0</view>
+      <view class="item-note">收藏的店铺</view>
+    </view>
+    <view class="item">
+      <view class="item-number ">0</view>
+      <view class="item-note">收藏的商品</view>
+    </view>
+    <view class="item">
+      <view class="item-number ">0</view>
+      <view class="item-note">关注的商品</view>
+    </view>
+    <view class="item">
+      <view class="item-number ">0</view>
+      <view class="item-note">我的足迹</view>
+    </view>
+  </view>
+  <view class="order ">
+    <view class="order-head ">我的订单</view>
+    <view class="order-body ">
+      <navigator url="/pages/orders?type=1" class="item">
+        <view class="iconfont icon-dingdan "></view>
+        <view class="item-note">全部订单</view>
+      </navigator>
+      <navigator url="/pages/orders?type=2" class="item">
+        <view class="iconfont icon-daifukuan "></view>
+        <view class="item-note">待付款</view>
+      </navigator>
+      <navigator url="/pages/orders?type=3" class="item">
+        <view class="iconfont icon-daishouhuo "></view>
+        <view class="item-note">待收货</view>
+      </navigator>
+      <navigator url="/pages/orders?type=4" class="item">
+        <view class="iconfont icon-tuikuan "></view>
+        <view class="item-note">退款/退货</view>
+      </navigator>
+    </view>
+  </view>
+  <view class="cell ">
+    <view class="cell-item icon-arrow-right ">
+      <text class="cell-text">收货地址管理</text>
+    </view>
+  </view>
+  <view class="cell ">
+    <view class="cell-item">
+      <text class="cell-text">联系客服</text>
+      <text class="phone " @tap="phoneCallHandle ">400-618-4000</text>
+    </view>
+    <view class="cell-item icon-arrow-right ">
+      <text class="cell-text">意见反馈</text>
+    </view>
+    <view class="cell-item icon-arrow-right ">
+      <text class="cell-text">关于我们</text>
+    </view>
+  </view>
+  <view class="bottom-space"></view>
+
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Profile extends wepy.page {
+  config = {
+    navigationBarTitleText: '我的'
+  }
+  data = {
+    userInfo: ''
+  }
+  onShow() {
+    this.userInfo = wepy.getStorageSync('userInfo') || null
+  }
+}
+</script>

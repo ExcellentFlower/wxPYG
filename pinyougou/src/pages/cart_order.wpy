@@ -1,0 +1,317 @@
+<style lang="less">
+page {
+  background-color: #fff;
+}
+.divider {
+  background-color: #f4f4f4;
+}
+.address {
+  &-info {
+    height: 222px;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: span;
+    .space-between {
+      justify-content: space-between;
+    }
+    .item {
+      padding: 22px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 32px;
+      line-height: 1.3;
+
+      .note {
+        width: 160px;
+      }
+      .detail {
+        max-width: 560px;
+      }
+      .address-phone {
+        margin-right: 82px;
+      }
+      .icon-jiantouyou {
+        position: absolute;
+        right: 10px;
+      }
+      .icon-jiantouyou:before {
+        font-size: 24px;
+        color: #999;
+        line-height: 1;
+        width: 15px;
+        height: 25px;
+      }
+    }
+  }
+  &-border {
+    width: 750px;
+    height: 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  &-add {
+    height: 222px;
+    &-btn {
+      width: 360px;
+      height: 80px;
+      background-color: #f4f4f4;
+      border-radius: 5px;
+      color: #ccc;
+      font-size: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.product {
+  &-item {
+    display: flex;
+    padding: 30px 20px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 20px;
+      right: 0;
+      bottom: 0;
+      border-bottom: 1px solid #ddd;
+    }
+  }
+  &-left {
+    margin-right: 26px;
+    &,
+    .product-img {
+      width: 200px;
+      height: 200px;
+      background-color: #eee;
+    }
+  }
+  &-right {
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  &-name {
+    height: 84px;
+    font-size: 30px;
+    line-height: 1.4;
+    /* 多行文字隐藏省略号 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  &-price {
+    color: #ff2d4a;
+    &-symbol,
+    &-decimal {
+      font-size: 28px;
+    }
+    &-integer {
+      font-size: 44px;
+    }
+  }
+  &-count {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    letter-spacing: 2px;
+    color: #999;
+  }
+}
+
+.order {
+  &-list {
+    background-color: #fff;
+  }
+  &-total-item {
+    height: 60px;
+    background-color: #fff;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    &-right {
+      color: #ff2d4a;
+    }
+  }
+  &-cell {
+    height: 88px;
+    background-color: #fff;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    &::after {
+      content: '';
+      position: absolute;
+      border-top: 1px solid #ddd;
+      left: 20px;
+      right: 20px;
+      top: -1px;
+    }
+    .btn-line {
+      border: 2px solid #999;
+      border-radius: 5px;
+      width: 156px;
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 40px;
+    }
+    .btn-color-main {
+      color: #ff2d4a;
+    }
+  }
+  &-pay {
+    background-color: #fff;
+    padding: 20px 20px 60px;
+    font-size: 30px;
+    text-align: right;
+    &-head {
+      margin-bottom: 20px;
+    }
+    &-total {
+      color: #ff2d4a;
+    }
+    &-btn,
+    .login-btn {
+      background-color: #00c000;
+      display: flex;
+      height: 80px;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 30px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      &.disabled {
+        background-color: #ddd;
+      }
+    }
+  }
+}
+</style>
+<template>
+  <Address>
+    <view class="address-info">
+      <block wx:if="{{ addressPage }}">
+        <view class="item space-between">
+          <view class="col">
+            <text class="note">收货人：</text>
+            <text class="detail">addressPage.userName</text>
+          </view>
+          <view class="col">
+            <text class="address-phone">addressPage.telNumber</text>
+            <view class="iconfont icon-jiantouyou"></view>
+          </view>
+        </view>
+        <view class="item">
+          <text class="note">收货地址：</text>
+          <text class="detail">addressPage.userAddressMerge</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="address-add-btn">+ 新增地址</view>
+      </block>
+      <image class="address-border" src="/assets/images/cart_border@2x.png" alt="" />
+    </view>
+  </Address>
+  <view class="divider"></view>
+  <view class="order-list">
+    <block>
+      <view class="product-item">
+        <navigator url="/pages/goods_detail?goods_id=item.goods_id" class="product-left">
+          <image class="product-img image-holder" src="" />
+        </navigator>
+        <view class="product-right">
+          <navigator url="/pages/goods_detail?goods_id=item.goods_id" class="product-name">
+          复古装色运动外套男女情侣套装买一送医就是这么便宜
+          </navigator>
+          <view class="product-price">
+            <text class="product-price-symbol">￥</text>
+            <text class="product-price-integer">100</text>
+            <text class="product-price-decimal">.00</text>
+          </view>
+          <view class="product-count">x3</view>
+        </view>
+      </view>
+      <view class="product-item">
+        <navigator url="/pages/goods_detail?goods_id=item.goods_id" class="product-left">
+          <image class="product-img image-holder" src="" />
+        </navigator>
+        <view class="product-right">
+          <navigator url="/pages/goods_detail?goods_id=item.goods_id" class="product-name">
+          复古装色运动外套男女情侣套装买一送医就是这么便宜
+          </navigator>
+          <view class="product-price">
+            <text class="product-price-symbol">￥</text>
+            <text class="product-price-integer">100</text>
+            <text class="product-price-decimal">.00</text>
+          </view>
+          <view class="product-count">x3</view>
+        </view>
+      </view>
+    </block>
+    <view class="order-cell">
+      项目测试使用，支付成功后我们不会为您发货
+    </view>
+  </view>
+  <view class="divider"></view>
+  <view class="order-total">
+    <view class="order-total-item">
+      <view class="order-total-item-left">商品金额</view>
+      <view class="order-total-item-right">￥1000</view>
+    </view>
+    <view class="order-total-item">
+      <view class="order-total-item-left">运费</view>
+      <view class="order-total-item-right">+￥0.00</view>
+    </view>
+  </view>
+  <view class="order-pay">
+    <view class="order-pay-head">实付金额：<text class="order-pay-total">￥0.01</text></view>
+    <!--
+      11.0.1 微信登录授权按钮
+      微信已经废除 wx.getUserInfo 这个接口，现在只能通过按钮，获取用户的登录信息
+      11.0.2  open-type="getUserInfo" 指定按钮开放能力为获取用户信息
+      11.0.3  配合  bindgetuserinfo 事件获取获取用户信息
+    -->
+    <!-- 11.0.9.3 通过 token 判断切换显示登录按钮还是下单按钮 -->
+    <!-- <block  wx:if="{{ !token }}" > -->
+      <button class="login-btn" open-type="getUserInfo">点击登录后下单</button>
+    <!-- </block> -->
+    <!-- <block wx:else> -->
+      <view class="login-btn order-pay-btn">微信支付</view>
+    <!-- </block> -->
+  </view>
+
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class CartOrder extends wepy.page {
+  config = {
+    navigationBarTitleText: '确认订单',
+    backgroundColor: '#fff'
+  }
+}
+</script>

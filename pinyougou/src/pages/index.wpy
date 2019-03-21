@@ -1,20 +1,151 @@
 <style lang="less">
+.slide-image {
+  width: 750px;
+  height: 340px;
+}
+
+.nav {
+  display: flex;
+  background-color: #fff;
+
+  &-item {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: 24px 0 29px 0;
+  }
+
+  &-img {
+    width: 128px;
+    height: 128px;
+  }
+}
+
+.floor {
+  &-head {
+    margin-top: 30px;
+    image {
+      width: 750px;
+      height: 59px;
+    }
+  }
+
+  &-body {
+    display: flex;
+    padding: 20px 16px;
+    background-color: #fff;
+
+    &-left,
+    &-left-img {
+      width: 232px;
+      height: 386px;
+    }
+
+    &-right {
+      display: flex;
+      flex-wrap: wrap;
+      height: 386px;
+      overflow: hidden;
+
+      &-img {
+        width: 233px;
+        height: 188px;
+        margin: 0 0 10px 10px;
+      }
+    }
+  }
+}
 </style>
-<template>
-  <view class="container">
-    Hello world
+<template lang="wxml" minapp="wepy">
+  <!-- 顶部轮播图 -->
+  <swiper
+    indicator-dots="{{indicatorDots}}"
+    indicator-active-color="{{indicatorActiveColor}}"
+    autoplay="{{autoplay}}"
+    interval="{{interval}}"
+    duration="{{duration}}"
+    circular="{{circular}}">
+    <block wx:for="{{imgUrls}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" alt="" title="" width="355" height="150"/>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 导航 -->
+  <view class="nav">
+    <navigator class="nav-item" hover-class="none" url="">
+      <image src="/assets/upload/icon_index_nav_1@2x.png" class="nav-img" />
+    </navigator>
+    <navigator class="nav-item" hover-class="none" url="">
+      <image src="/assets/upload/icon_index_nav_2@2x.png" class="nav-img" />
+    </navigator>
+    <!-- <navigator class="nav-item">
+      <image src="/assets/upload/icon_index_nav_3@2x.png" class="nav-img" />
+    </navigator> -->
+    <navigator class="nav-item" hover-class="none" url="">
+      <image src="/assets/upload/icon_index_nav_4@2x.png" class="nav-img" />
+    </navigator>
+    <navigator class="nav-item" hover-class="none" url="">
+      <image src="/assets/upload/icon_index_nav_5@2x.png" class="nav-img" />
+    </navigator>
+  </view>
+
+  <!-- 楼层 -->
+  <view class="floor">
+    <view class="floor-head">
+      <image src="/assets/upload/pic_floor01_title.png" />
+    </view>
+    <view class="floor-body">
+      <view class="floor-body-left">
+        <image class="floor-body-left-img" src="/assets/upload/pic_floor01_1@2x.png"></image>
+      </view>
+      <view class="floor-body-right">
+        <navigator url="">
+          <image class="floor-body-right-img" src="/assets/upload/pic_floor01_2@2x.png" />
+        </navigator>
+        <navigator url="">
+          <image class="floor-body-right-img" src="/assets/upload/pic_floor01_3@2x.png" />
+        </navigator>
+        <navigator url="">
+          <image class="floor-body-right-img" src="/assets/upload/pic_floor01_4@2x.png" />
+        </navigator>
+        <navigator url="">
+          <image class="floor-body-right-img" src="/assets/upload/pic_floor01_5@2x.png" />
+        </navigator>
+      </view>
+    </view>
   </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
-
-  export default class Index extends wepy.page {
-    config = {
-      navigationBarTitleText: 'test'
-    }
-    onLoad() {
-      console.log('onLoad')
-    }
+import wepy from 'wepy'
+//
+export default class Index extends wepy.page {
+  config = {
+    navigationBarTitleText: '品优购',
+    navigationBarBackgroundColor: '#ff2d4a',
+    navigationBarTextStyle: 'white'
   }
+
+  data = {
+    imgUrls: [
+      '/assets/upload/banner1.png',
+      '/assets/upload/banner2.png',
+      '/assets/upload/banner3.png',
+      '/assets/upload/banner4.png',
+      '/assets/upload/banner5.png'
+    ],
+    indicatorDots: true,
+    indicatorActiveColor: '#fff',
+    autoplay: true,
+    interval: 5000,
+    duration: 1000,
+    circular: true
+  }
+
+  onLoad() {
+    console.log('onLoad')
+  }
+}
 </script>
